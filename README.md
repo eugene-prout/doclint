@@ -1,0 +1,1 @@
+A simple tool to lint the complexity of docstrings.
