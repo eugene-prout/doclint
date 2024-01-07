@@ -13,6 +13,9 @@ click = "^8.1.7"
 [tool.poetry.scripts]
 doclint = "doclint.main:main"
 
+[tool.poetry.group.dev.dependencies]
+black = "^23.12.1"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
