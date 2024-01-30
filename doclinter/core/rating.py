@@ -23,36 +23,17 @@ def split_into_sentences(text: str) -> list[str]:
     return re.split(r"[.!?]", text)
 
 
-class Difficulty(Enum):
-    NORMAL = "Normal"
-    HARD = "Hard"
-    VERY_HARD = "Very Hard"
+def is_above_threshold(value: int, max_level: int) -> bool:
+    return value >= max_level
 
 
-def map_level_to_difficulty(level: int) -> Difficulty:
-    if level < 10:
-        return Difficulty.NORMAL
-    elif 10 <= level < 14:
-        return Difficulty.HARD
-    else:
-        return Difficulty.VERY_HARD
-
-
-def rate_text(text: str) -> Difficulty:
+def rate_text(text: str) -> int:
     paragraphs = split_into_paragraphs(text)
     levels = [
         calculate_ARI(count_letters(p), count_words(p), count_sentences(p))
         for p in paragraphs
     ]
-    difficulties = [map_level_to_difficulty(level) for level in levels]
-
-    # return max difficulty in the list
-    if Difficulty.VERY_HARD in difficulties:
-        return Difficulty.VERY_HARD
-    elif Difficulty.HARD in difficulties:
-        return Difficulty.HARD
-    else:
-        return Difficulty.NORMAL
+    return max(levels)
 
 
 def calculate_ARI(letter_count: int, word_count: int, sentence_count: int):
